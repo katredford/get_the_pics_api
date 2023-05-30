@@ -11,7 +11,7 @@ const connection = mysql.createConnection(
   
 );
 
-//# app.METHOD(PATH, HANDLER)
+//# router.METHOD(PATH, HANDLER)
 // Where:
 
 // METHOD is an HTTP request method, in lowercase.
@@ -19,12 +19,6 @@ const connection = mysql.createConnection(
 // HANDLER is the function executed when the route is matched.
 // var router = express.Router()
 
-// router.route('/')
-//   // .all(function (req, res, next) {
-//   //   // runs for all HTTP verbs first
-//   //   // think of it as route specific middleware!
-//   //   next()
-//   // })
   
   router.get( "/", (req, res) => {
   const sql = `SELECT * FROM pics`;
@@ -52,8 +46,22 @@ connection.query(sql, addPics, (err, result) => {
        return;
     }
     res.json({
-      message: 'success',
-      data: result
+      message: 'pic added',
+    });
+  });
+  });
+
+    router.delete( "/:id",(req, res) => {
+  const sql = `DELETE FROM pics WHERE id=?`;
+  const deletePics = [req.params.id]
+connection.query(sql, deletePics, (err, result) => {
+
+    if (err) {
+      res.status(500).json({ error: err.message });
+       return;
+    }
+    res.json({
+      message: `pic #${deletePics} deleted`,
     });
   });
 });
