@@ -1,5 +1,6 @@
 const express = require('express');
-const mysql = require('mysql2');
+
+const routes = require('./routes');
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -8,33 +9,15 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-const connection = mysql.createConnection(
-  {
-    host: 'localhost',
-    user: 'root',
-    password: 'x',
-    database: 'get_pics_db'
-  }
-  
-);
 
-app.get('/api/pics', (req, res) => {
-  const sql = `SELECT * FROM pics`;
-  
-connection.query(sql, (err, result) => {
-
-    if (err) {
-      res.status(500).json({ error: err.message });
-       return;
-    }
-    res.json({
-      message: 'success',
-      data: result
-    });
-  });
-});
-
+// app.get('/example/b', (req, res, next) => {
+//   console.log('the response will be sent by the next function ...')
+//   next()
+// }, (req, res) => {
+//   res.send('Hello from B!')
+// })
+app.use(routes); 
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log(`Server running on port http://localhost:${PORT}`);
 });
