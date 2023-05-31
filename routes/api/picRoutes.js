@@ -29,6 +29,7 @@ connection.query(sql, (err, result) => {
       res.status(500).json({ error: err.message });
        return;
     }
+   res.header("Access-Control-Allow-Origin", "*");
     res.json({
       message: 'success',
       data: result

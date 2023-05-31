@@ -9,14 +9,7 @@ const app = express();
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-
-// app.get('/example/b', (req, res, next) => {
-//   console.log('the response will be sent by the next function ...')
-//   next()
-// }, (req, res) => {
-//   res.send('Hello from B!')
-// })
-app.use(routes); 
+app.use("/", routes); 
 
 app.listen(PORT, () => {
   console.log(`Server running on port http://localhost:${PORT}`);
