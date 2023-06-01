@@ -1,4 +1,3 @@
-
 import './App.css';
 import DisplayPics from './components/DisplayPics';
 
